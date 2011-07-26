@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.model.ExternalJob>
+  <actions/>
+  <description>exewatch</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Delete:anonymous</permission>
+      <permission>hudson.model.Item.Delete:sa</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:sa</permission>
+      <permission>hudson.model.Run.Update:anonymous</permission>
+      <permission>hudson.model.Run.Update:sa</permission>
+      <permission>hudson.model.Run.Delete:anonymous</permission>
+      <permission>hudson.model.Run.Delete:sa</permission>
+      <permission>hudson.model.Item.Build:anonymous</permission>
+      <permission>hudson.model.Item.Build:sa</permission>
+      <permission>hudson.model.Item.Workspace:anonymous</permission>
+      <permission>hudson.model.Item.Workspace:sa</permission>
+      <permission>hudson.model.Item.Configure:anonymous</permission>
+      <permission>hudson.model.Item.Configure:sa</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+</hudson.model.ExternalJob>

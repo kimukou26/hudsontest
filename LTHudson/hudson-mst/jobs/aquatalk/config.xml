@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>::type %HUDSON_HOME%\script\gcon_jnatest.groovy
+</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>@echo off
+cd %HUDSON_HOME%
+echo &quot;bat start&quot;
+hudson-cli.bat script/gcon_jnatest.groovy %HUDSON_HOME% %TALKMSG% %TALKTYPE%
+echo &quot;bat end&quot;</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>aquatalk_ans</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.setenv.SetEnvBuildWrapper>
+      <localVarText>::　f1     女声１（AquesTalkライブラリ中と同じもの）
+::　m1     男声１
+::　r1     ロボット声１
+::　f2     女声２(女声１より落ち着いた感じ）
+::　m2     男声２(男声１より高い声）
+::　imd1   中性的な声１
+::　dvd    機械的な声(低めのノイジーな感じ）
+::　jgr    機械的な声(高めの甲高い感じ）
+TALKTYPE=f2
+TALKMSG=&quot;そんなジョブ、&lt;NUMK VAL=${BUILD_NUMBER} COUNTER=ばん&gt;で、だいじょうぶか？&quot;
+
+</localVarText>
+    </hudson.plugins.setenv.SetEnvBuildWrapper>
+  </buildWrappers>
+</project>

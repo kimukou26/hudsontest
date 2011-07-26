@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.groovy.Groovy_-DescriptorImpl>
+  <instanceCounter>
+    <value>0</value>
+  </instanceCounter>
+  <installations>
+    <hudson.plugins.groovy.Groovy_-GroovyInstallation>
+      <name>groovy-1.7.5</name>
+      <home>C:\opt\groovy-1.7.5</home>
+    </hudson.plugins.groovy.Groovy_-GroovyInstallation>
+  </installations>
+</hudson.plugins.groovy.Groovy_-DescriptorImpl>

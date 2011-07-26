@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>type %HUDSON_HOME%\script\filecheck.groovy</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>@echo off
+cd %HUDSON_HOME%
+echo &quot;bat start&quot;
+hudson-cli.bat script/filecheck.groovy %CHK_FILEPATH% %HUDSON_HOME% %JOB_NAME% %JOB_NAME_NEXT%
+echo &quot;bat end&quot;</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.test.AggregatedTestResultPublisher/>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.setenv.SetEnvBuildWrapper>
+      <localVarText>CHK_FILEPATH=D:/workspace36/kohsuke/LTHudson/TEMP/found.trigger
+JOB_NAME_NEXT=griffon</localVarText>
+    </hudson.plugins.setenv.SetEnvBuildWrapper>
+  </buildWrappers>
+</project>

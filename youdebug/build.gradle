@@ -1,0 +1,91 @@
+apply plugin: 'groovy'
+[compileGroovy, compileTestGroovy]*.options.collect {options -> options.encoding = 'UTF-8'}
+
+//apply plugin: 'java'
+//[compileJava, compileTestJava]*.options.collect {options -> options.encoding = 'UTF-8'}
+
+allprojects { 
+    sourceCompatibility = 1.6 
+    targetCompatibility = 1.6 
+} 
+
+version = "1.4-SNAPSHOT"
+archivesBaseName = "youdebug"
+
+
+def JDK_HOME = 'c:/opt/jdk'
+//compile.compilerArgs = ['-Xlint:unchecked']
+//compile.options.compilerArgs = ['-Xlint', 'othervalue']
+
+repositories {
+    //flatDir(dirs: file("$rootDir/lib"))
+    flatDir(dirs: file("$JDK_HOME/lib"))
+    //classpath files("$JDK_HOME/lib/tools.jar")
+    mavenCentral()
+    mavenRepo urls: [ "http://download.java.net/maven/2/",
+                      "http://repository.jboss.org/maven2/",
+                      "http://repository.jboss.org/nexus/content/groups/public-jboss/"]
+}
+
+dependencies {
+    groovy group: 'org.codehaus.groovy', name: 'groovy-all', version: '1.7.5'
+    //groovy group: 'org.codehaus.groovy', name: 'groovy-all', version: '1.6.5'
+    groovy group: 'com.sun.tools', name: 'tools', version: ''
+    groovy group: 'args4j', name: 'args4j', version: '2.0.16'
+    groovy group: 'com.thoughtworks.qdox', name: 'qdox', version: '1.6.3'
+    testCompile 'junit:junit:3.8.1'
+    //testCompile "org.spockframework:spock-core:0.4-groovy-1.7"
+    //testCompile "cglib:cglib-nodep:2.2"
+    //testCompile "org.objenesis:objenesis:1.2"
+}
+
+
+println sourceSets.main.groovy.srcDirs
+println sourceSets.main.java.srcDirs
+sourceSets {
+  main{
+    groovy {
+      //srcDirs=['src/main/groovy','src/main/java']
+      srcDirs+='src/main/java'
+    }
+    java {
+      srcDirs=[]
+    }
+
+  }
+}
+println sourceSets.main.groovy.srcDirs
+println sourceSets.main.java.srcDirs
+
+
+task copyToLib(type: Copy) {
+    into "$buildDir/output/lib"
+    from configurations.runtime
+}
+
+task('doc-generation',dependsOn:copyToLib) << {
+	ClassLoader parent = ClassLoader.getSystemClassLoader()
+	GroovyClassLoader loader = new GroovyClassLoader(parent)
+
+	new File("$buildDir/output/lib").eachFileRecurse{ 
+    loader.addURL it.toURL()
+    //println it
+	}
+
+	//arg not set constractor (I do not yet runnig)
+	fname="${rootDir}/src/docgenerator/org/codehaus/groovy/tools/docgenerator.groovy"
+	def groovyClass = loader.parseClass(new File(fname))
+	def groovyObject = groovyClass.newInstance()
+
+	//fname_target="target/generated-sources/groovy-stubs/main/org/kohsuke/youdebug/JDICategory.java"
+	fname_target="${rootDir}/src/main/groovy/org/kohsuke/youdebug/JDICategory.groovy"
+  groovyObject.setProperty("args", [ fname_target ]as Object[])
+  groovyObject.invokeMethod("run", []as Object[])
+}
+
+
+//depency lib include and Manifest-INF
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
+manifest.mainAttributes("Main-Class" : "org.kohsuke.youdebug.YouDebug")

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>DBmaster</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>echo %PATH%
+cd /d D:\workspace36\_github\griffontest</command>
+    </hudson.tasks.BatchFile>
+    <hudson.plugins.gradle.Gradle>
+      <description></description>
+      <switches></switches>
+      <tasks>run-app</tasks>
+      <rootBuildScriptDir>D:\workspace36\_github\griffontest\steeltest</rootBuildScriptDir>
+      <buildFile>build.gradle</buildFile>
+      <gradleName>gradle</gradleName>
+    </hudson.plugins.gradle.Gradle>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.setenv.SetEnvBuildWrapper>
+      <localVarText>GROOVY_HOME=C:\\opt\\groovy-1.7.5
+GRIFFON_HOME=C:\\opt\\griffon-0.9.2-beta-2
+JAVA_HOME=c:\\opt\\jdk
+PATH=${GRIFFON_HOME}/bin;${GROOVY_HOME}/bin;${JAVA_HOME}/bin</localVarText>
+    </hudson.plugins.setenv.SetEnvBuildWrapper>
+  </buildWrappers>
+</project>

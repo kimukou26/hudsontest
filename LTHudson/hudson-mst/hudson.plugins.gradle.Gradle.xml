@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.gradle.Gradle_-DescriptorImpl>
+  <installations>
+    <hudson.plugins.gradle.GradleInstallation>
+      <name>gradle0.9-rc-3</name>
+      <home>D:/ToolDev/gradle-0.9-rc-3</home>
+      <properties/>
+      <gradleHome>D:/ToolDev/gradle-0.9-rc-3</gradleHome>
+    </hudson.plugins.gradle.GradleInstallation>
+  </installations>
+</hudson.plugins.gradle.Gradle_-DescriptorImpl>
